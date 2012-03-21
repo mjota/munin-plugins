@@ -26,7 +26,7 @@
 */
 
 // path where the apache logs are to be found
-define('LOG_PATH', "/var/log/apache2/");
+define('LOG_PATH', "/var/log/ispconfig/httpd/");
 
 // number of lines to start with in the access log - improving this may reduce the number of times it checks
 define('ACCESS_LINES', 1000);
@@ -42,7 +42,7 @@ $excludes[]="|^.dev.*$|i";
 $includes = array();
 $includes[] = "development.com";
 
-exec(sprintf("find %s -iname *_access.log", LOG_PATH), $files);
+exec(sprintf("find %s -iname access.log", LOG_PATH), $files);
 
 foreach ($files as $key=>$file) {
 	 foreach ($includes as $include) {
@@ -142,6 +142,6 @@ function hashname($file) {
 }
 
 function sitename($file) {
-        list($sitename)=explode("_", basename($file));
+        $sitename=basename(dirname($file));
         return $sitename;
 }
